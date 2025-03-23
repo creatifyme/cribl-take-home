@@ -76,8 +76,10 @@ const folderPayload: ITreeNode[] = [
 
 const folderListTemplate = (folderName: string) => `<li><button class="button">${folderName}</button></li>`;
 
+const convertFileSize = (fileSize: number) => Math.floor(fileSize / 1024);
+
 const folderTableTemplate = (folderName: string, fileSize: number, date: Date) => {
-  const formattedFileSize = `${fileSize} bytes`;
+  const formattedFileSize = `${convertFileSize(fileSize)} KB`;
   const formattedDate = new Date(date).toLocaleDateString();
 
   return `
@@ -149,7 +151,9 @@ const findObjectByKey = (array: ITreeNode[], key: string, value: string) => {
       if (item[key] === value) {
         return item;
       }
+
       const found = Array.isArray(item) ? findObjectByKey(item, key, value) : findObjectByKey(Object.values(item), key, value);
+
       if (found) {
         return found;
       }
@@ -160,9 +164,9 @@ const findObjectByKey = (array: ITreeNode[], key: string, value: string) => {
 
 const renderTable = (folderContents: ITreeNode[]) => {
   const contentView = document.getElementById('directory-body');
-  const contentsHTML = folderContents.map(folder => folderTableTemplate(folder.name, folder.size, folder.modified));
+  const contentsHTML = folderContents.map(folder => folderTableTemplate(folder.name, folder.size, folder.modified)).join('');
 
-  contentView.innerHTML =contentsHTML;
+  contentView.innerHTML = contentsHTML;
 };
 
 const renderList = () => {
@@ -183,11 +187,11 @@ const folderButtonListener = () => {
     button.addEventListener("click", () => {
       const buttonText = button.textContent?.trim();
 
-      if(button.classList.contains(FOLDER_EXPANDABLE_BUTTON_CLASS)) {
+      if (button.classList.contains(FOLDER_EXPANDABLE_BUTTON_CLASS)) {
         button.classList.toggle('folder-list__button--collapsed');
       }
 
-      if(buttonText !== 'Files') {
+      if (buttonText !== 'Files') {
         const folderContents = findObjectByKey(folderListClone, 'name', button.textContent?.trim());
         folderContents.children?.length && renderTable(folderContents.children);
       }

@@ -94,7 +94,8 @@ table {
   border-bottom: 0.125rem solid var(--gray);
 }
 
-.table__header th {
+.table__header th,
+.table__body td {
   color: var(--gray-dark);
   font-weight: normal;
   font-size: 0.875rem;
@@ -106,6 +107,7 @@ table {
   width: 60%;
 }
 
-.table__header th:last-child {
+.table__header th:last-child,
+.table__body td:last-child {
   text-align: right;
 }
