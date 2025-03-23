@@ -78,13 +78,14 @@ const folderListTemplate = (folderName: string) => `<li><button class="button">$
 
 const convertFileSize = (fileSize: number) => Math.floor(fileSize / 1024);
 
-const folderTableTemplate = (folderName: string, fileSize: number, date: Date) => {
-  const formattedFileSize = `${convertFileSize(fileSize)} KB`;
-  const formattedDate = new Date(date).toLocaleDateString();
+const folderTableTemplate = ({ type, name, size, modified }: ITreeNode) => {
+  const formattedFileSize = `${convertFileSize(size)} KB`;
+  const formattedDate = new Date(modified).toLocaleDateString();
+  const iconClass = type === FOLDER ? 'folder-open' : `file`;
 
   return `
     <tr>
-      <td>${folderName}</td>
+      <td><i class="fa-solid fa-${iconClass}"></i> ${name}</td>
       <td>${formattedDate}</td>
       <td>${formattedFileSize}</td>
     <tr>
@@ -164,7 +165,7 @@ const findObjectByKey = (array: ITreeNode[], key: string, value: string) => {
 
 const renderTable = (folderContents: ITreeNode[]) => {
   const contentView = document.getElementById('directory-body');
-  const contentsHTML = folderContents.map(folder => folderTableTemplate(folder.name, folder.size, folder.modified)).join('');
+  const contentsHTML = folderContents.map(content => folderTableTemplate(content)).join('');
 
   contentView.innerHTML = contentsHTML;
 };

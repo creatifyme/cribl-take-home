@@ -67,12 +67,13 @@ const folderPayload = [
 ];
 const folderListTemplate = (folderName) => `<li><button class="button">${folderName}</button></li>`;
 const convertFileSize = (fileSize) => Math.floor(fileSize / 1024);
-const folderTableTemplate = (folderName, fileSize, date) => {
-    const formattedFileSize = `${convertFileSize(fileSize)} KB`;
-    const formattedDate = new Date(date).toLocaleDateString();
+const folderTableTemplate = ({ type, name, size, modified }) => {
+    const formattedFileSize = `${convertFileSize(size)} KB`;
+    const formattedDate = new Date(modified).toLocaleDateString();
+    const iconClass = type === FOLDER ? 'folder-open' : `file`;
     return `
     <tr>
-      <td>${folderName}</td>
+      <td><i class="fa-solid fa-${iconClass}"></i> ${name}</td>
       <td>${formattedDate}</td>
       <td>${formattedFileSize}</td>
     <tr>
@@ -138,7 +139,7 @@ const findObjectByKey = (array, key, value) => {
 };
 const renderTable = (folderContents) => {
     const contentView = document.getElementById('directory-body');
-    const contentsHTML = folderContents.map(folder => folderTableTemplate(folder.name, folder.size, folder.modified)).join('');
+    const contentsHTML = folderContents.map(content => folderTableTemplate(content)).join('');
     contentView.innerHTML = contentsHTML;
 };
 const renderList = () => {
