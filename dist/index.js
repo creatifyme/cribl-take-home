@@ -68,7 +68,8 @@ const folderPayload = [
 const folderListTemplate = (folderName) => `<li><button class="button">${folderName}</button></li>`;
 const folderTableTemplate = (folderName, fileSize, date) => {
     const formattedFileSize = `${fileSize} bytes`;
-    const formattedDate = date.toLocaleDateString();
+    // const formattedDate = date.toString();
+    const formattedDate = luxon.DateTime.fromJSDate(date);
     return `
     <tr>
       <td>${folderName}</td>
@@ -121,33 +122,50 @@ const findFolders = (item) => {
 };
 // Reduce array to just folders
 const getFolderTypes = (array) => array.map(findFolders).filter(item => item !== null);
-const selectChildren = (array, folderName) => array.find(item => item.name === folderName);
-const renderTable = (folderContents) => {
-    folderContents.map((item) => {
-        if (child.type === FOLDER) {
-            renderTable(child?.children);
+const findObjectByKey = (array, key, value) => {
+    for (const item of array) {
+        if (typeof item === 'object' && item !== null) {
+            if (item[key] === value) {
+                return item;
+            }
+            const found = Array.isArray(item) ? findObjectByKey(item, key, value) : findObjectByKey(Object.values(item), key, value);
+            if (found) {
+                return found;
+            }
         }
-    });
-    // folderTableTemplate
+    }
+    return undefined;
+};
+const renderTable = (folderContents) => {
+    const contentView = document.getElementById('directory-body');
+    const contentsHTML = folderContents.map(folder => folderTableTemplate(folder.name, folder.size, folder.modified));
+    contentView.innerHTML = contentsHTML;
 };
 const renderList = () => {
     const folderListClone = JSON.parse(JSON.stringify(folderPayload));
     const folderListReduced = getFolderTypes(folderListClone);
     const sidebar = document.getElementById('directory-navigator');
     const html = renderFolderList(folderListReduced);
+    sidebar.innerHTML = html;
+};
+const folderButtonListener = () => {
     const buttons = document.querySelectorAll(`.${FOLDER_BUTTON_CLASS}`);
+    const folderListClone = JSON.parse(JSON.stringify(folderPayload));
     // Add an event listener to each button
     buttons.forEach(button => {
         button.addEventListener("click", () => {
-            button.classList.contains(FOLDER_EXPANDABLE_BUTTON_CLASS) &&
+            const buttonText = button.textContent?.trim();
+            if (button.classList.contains(FOLDER_EXPANDABLE_BUTTON_CLASS)) {
                 button.classList.toggle('folder-list__button--collapsed');
-            const folderContents = selectChildren(folderListClone, button.textContent?.trim());
-            renderTable(folderContents?.children);
+            }
+            if (buttonText !== 'Files') {
+                const folderContents = findObjectByKey(folderListClone, 'name', button.textContent?.trim());
+                folderContents.children?.length && renderTable(folderContents.children);
+            }
         });
     });
-    sidebar.innerHTML = html;
 };
 document.addEventListener('DOMContentLoaded', () => {
     renderList();
-    // folderButtonListener();
+    folderButtonListener();
 });

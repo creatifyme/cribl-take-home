@@ -24,20 +24,21 @@
           </li>
         </ul>
       </nav>
-      <section>
-        <table>
-          <thead>
+      <section class="content">
+        <table class="table">
+          <thead class="table__header">
             <tr>
-              <th>Name</th>
-              <th>Date Modified</th>
-              <th>File Size</th>
+              <th class="table__header__file-name">Name</th>
+              <th class="table__header__file-date">Date Modified</th>
+              <th class="table__header__file-size">File Size</th>
             </tr>
           </thead>
-          <tbody id="directory-body"></tbody>
+          <tbody id="directory-body" class="table__body"></tbody>
         </table>
       </section>
     </main>
   </body>
 
-  <script src="./dist/index.js" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/npm/luxon@3.5.0/build/global/luxon.min.js"></script>
+  <script src="./dist/index.js"></script>
 </html>

@@ -1,5 +1,6 @@
 :root {
   --gray: #ccc;
+  --gray-dark: #666;
   --gray-light: #f1f1f1;
 }
 
@@ -15,6 +16,10 @@
   width: 25%;
   padding: 0.5rem 1rem;
   border-right: 1px var(--gray) solid;
+}
+
+.content {
+  flex: 1;
 }
 
 .folder-list {
@@ -76,4 +81,31 @@
 
 .folder-list__button--collapsed + ul {
   height: auto;
+}
+
+/* Table Styles */
+table {
+  font-family: sans-serif;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table__header {
+  border-bottom: 0.125rem solid var(--gray);
+}
+
+.table__header th {
+  color: var(--gray-dark);
+  font-weight: normal;
+  font-size: 0.875rem;
+  text-align: left;
+  padding: 0.5rem 1rem;
+}
+
+.table__header__file-name {
+  width: 60%;
+}
+
+.table__header th:last-child {
+  text-align: right;
 }
