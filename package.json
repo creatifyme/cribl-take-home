@@ -1,0 +1,23 @@
+{
+  "name": "cribl-take-home",
+  "version": "1.0.0",
+  "description": "This is my take home code assessment from Cribl.",
+  "homepage": "https://github.com/creatifyme/cribl-take-home#readme",
+  "bugs": {
+    "url": "https://github.com/creatifyme/cribl-take-home/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/creatifyme/cribl-take-home.git"
+  },
+  "type": "commonjs",
+  "main": "index.js",
+  "author": "Matt Webb",
+  "scripts": {
+    "start": "http-server ./"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "typescript": "^5.8.2"
+  }
+}

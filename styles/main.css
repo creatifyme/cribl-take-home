@@ -1,0 +1,79 @@
+:root {
+  --gray: #ccc;
+  --gray-light: #f1f1f1;
+}
+
+.container {
+  display: flex;
+  max-width: 80rem;
+  min-height: 50vh;
+  margin: 0 auto;
+  border: 1px var(--gray) solid;
+}
+
+.sidebar {
+  width: 25%;
+  padding: 0.5rem 1rem;
+  border-right: 1px var(--gray) solid;
+}
+
+.folder-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.folder-list--sub-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0 1rem;
+}
+
+.folder-list__item {
+  position: relative;
+}
+
+.folder-list__button {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0 0 0 0.5rem;
+  border: none;
+  background-color: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.folder-list__button__text {
+  display: block;
+  padding: 0.5rem;
+  margin-left: 0.3125rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.folder-list__button:hover .folder-list__button__text {
+  background-color: var(--gray-light);
+}
+
+.folder-list__button--expandable::before {
+  position: absolute;
+  left: 0;
+  top: calc(50% - 0.5rem);
+  content: "\f0da";
+  font-family: 'FontAwesome';
+}
+
+.folder-list__button--collapsed::before {
+  content: '\f0d7';
+}
+
+.folder-list__button--expandable + ul {
+  height: 0;
+  overflow: hidden;
+}
+
+.folder-list__button--collapsed + ul {
+  height: auto;
+}

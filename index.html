@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>So Many Issues</title>
+    <script src="https://kit.fontawesome.com/ae0cf97057.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="./styles/main.css" />
+  </head>
+  <body>
+    <main class="container">
+      <nav class="sidebar">
+        <ul class="folder-list">
+          <li class="folder-list__item">
+            <button
+              class="folder-list__button folder-list__button--expandable"
+              title="Files"
+            >
+              <span class="folder-list__button__text">
+                <i class="fa-solid fa-folder-open"></i>
+                Files
+              </span>
+            </button>
+            <ul id="directory-navigator" class="folder-list--sub-list"></ul>
+          </li>
+        </ul>
+      </nav>
+      <section>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Date Modified</th>
+              <th>File Size</th>
+            </tr>
+          </thead>
+          <tbody id="directory-body"></tbody>
+        </table>
+      </section>
+    </main>
+  </body>
+
+  <script src="./dist/index.js" type="module"></script>
+</html>
