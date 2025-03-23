@@ -15,7 +15,8 @@
   "author": "Matt Webb",
   "scripts": {
     "start": "http-server ./",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "build": "tsc -w"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",
