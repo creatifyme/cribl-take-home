@@ -14,64 +14,72 @@ type ITreeNode = {
 const folderPayload: ITreeNode[] = [
   {
     type: "folder",
-    name: "Documents",
+    name: "Files",
     modified: new Date("2025-03-23T10:30:00Z"),
     size: 2,
     children: [
       {
         type: "folder",
-        name: "Some Sub Folder",
+        name: "Documents",
         modified: new Date("2025-03-23T10:30:00Z"),
-        size: 1000000,
+        size: 2,
         children: [
           {
             type: "folder",
-            name: "Again Some Sub Folder",
+            name: "Some Sub Folder",
             modified: new Date("2025-03-23T10:30:00Z"),
             size: 1000000,
-          }
-        ]
+            children: [
+              {
+                type: "folder",
+                name: "Again Some Sub Folder",
+                modified: new Date("2025-03-23T10:30:00Z"),
+                size: 1000000,
+              }
+            ]
+          },
+          {
+            type: "file",
+            name: "2024-W2.pdf",
+            modified: new Date("2024-12-30T10:30:00Z"),
+            size: 1000000,
+          },
+          {
+            type: "file",
+            name: "resume.rft",
+            modified: new Date("2025-03-23T10:30:00Z"),
+            size: 300000,
+          },
+          {
+            type: "file",
+            name: "all-of-my-passwords.txt",
+            modified: new Date("2025-03-23T10:30:00Z"),
+            size: 100000,
+          },
+        ],
       },
-      {
-        type: "file",
-        name: "2024-W2.pdf",
-        modified: new Date("2024-12-30T10:30:00Z"),
-        size: 1000000,
-      },
-      {
-        type: "file",
-        name: "resume.rft",
-        modified: new Date("2025-03-23T10:30:00Z"),
-        size: 300000,
-      },
-      {
-        type: "file",
-        name: "all-of-my-passwords.txt",
-        modified: new Date("2025-03-23T10:30:00Z"),
-        size: 100000,
-      },
-    ],
-  },
-  {
-    type: "folder",
-    name: "Pictures",
-    modified: new Date("2023-03-23T10:30:00Z"),
-    size: 0,
-    children: [
       {
         type: "folder",
-        name: "Vacation Pics",
-        modified: new Date("2023-03-23T10:45:00Z"),
-        size: 1000000,
+        name: "Pictures",
+        modified: new Date("2023-03-23T10:30:00Z"),
+        size: 0,
+        children: [
+          {
+            type: "folder",
+            name: "Vacation Pics",
+            modified: new Date("2023-03-23T10:45:00Z"),
+            size: 1000000,
+          },
+        ],
+      },
+      {
+        type: "folder",
+        name: "New Folder",
+        modified: new Date("2024-01-23T14:30:00Z"),
+        size: 0,
       },
     ],
-  },
-  {
-    type: "folder",
-    name: "New Folder",
-    modified: new Date("2024-01-23T14:30:00Z"),
-    size: 0,
-  },
+  }
 ];
 
 const folderListTemplate = (folderName: string) => `<li><button class="button">${folderName}</button></li>`;
@@ -153,10 +161,10 @@ const findObjectByKey = (array: ITreeNode[], key: string, value: string) => {
         return item;
       }
 
-      const found = Array.isArray(item) ? findObjectByKey(item, key, value) : findObjectByKey(Object.values(item), key, value);
+      const foundObject = Array.isArray(item) ? findObjectByKey(item, key, value) : findObjectByKey(Object.values(item), key, value);
 
-      if (found) {
-        return found;
+      if (foundObject) {
+        return foundObject;
       }
     }
   }
@@ -164,7 +172,7 @@ const findObjectByKey = (array: ITreeNode[], key: string, value: string) => {
 }
 
 const renderTable = (folderContents: ITreeNode[]) => {
-  const contentView = document.getElementById('directory-body');
+  const contentView = document.getElementById('directory-body') as HTMLElement;
   const contentsHTML = folderContents.map(content => folderTableTemplate(content)).join('');
 
   contentView.innerHTML = contentsHTML;
@@ -173,7 +181,7 @@ const renderTable = (folderContents: ITreeNode[]) => {
 const renderList = () => {
   const folderListClone = JSON.parse(JSON.stringify(folderPayload));
   const folderListReduced = getFolderTypes(folderListClone);
-  const sidebar = document.getElementById('directory-navigator');
+  const sidebar = document.getElementById('directory-navigator') as HTMLElement;
   const html = renderFolderList(folderListReduced);
 
   sidebar.innerHTML = html;
@@ -192,9 +200,9 @@ const folderButtonListener = () => {
         button.classList.toggle('folder-list__button--collapsed');
       }
 
-      if (buttonText !== 'Files') {
-        const folderContents = findObjectByKey(folderListClone, 'name', button.textContent?.trim());
-        folderContents.children?.length && renderTable(folderContents.children);
+      if (button.textContent) {
+        const folderContents = findObjectByKey(folderListClone, 'name', button.textContent.trim());
+        folderContents?.children?.length && renderTable(folderContents.children);
       }
     });
   });
