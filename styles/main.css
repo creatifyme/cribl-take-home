@@ -9,13 +9,13 @@
   max-width: 80rem;
   min-height: 50vh;
   margin: 0 auto;
-  border: 1px var(--gray) solid;
+  border: 0.0625rem var(--gray) solid;
 }
 
 .sidebar {
   width: 25%;
   padding: 0.5rem 1rem;
-  border-right: 1px var(--gray) solid;
+  border-right: 0.0625rem var(--gray) solid;
 }
 
 .content {
