@@ -94,6 +94,7 @@ const renderFolder = (folder) => {
       <button
         class="${FOLDER_BUTTON_CLASS} ${expandableFolder}"
         title="${folder.name}"
+        id="${folder.name.toLocaleLowerCase().replaceAll(' ', '-')}"
       >
         <span class="folder-list__button__text">
           <i class="fa-solid fa-folder-open"></i>
