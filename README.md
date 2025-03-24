@@ -1,16 +1,24 @@
 # Crible Take Home Test
 
 ## Run the project
+
 - Install the packages `npm i`
 - Start the server: `npm start`
 - Served up on `http://localhost:8080`
 
 ## Project commands
+
 - Run tests `npm run test`
 - Run TypeScript compiler `npm run build`
 
 ## Project Summary
 
+### What didn't get done
+
+I work full time as a Staff Frontend Engineer and have very limited time outside of work. Here are the things I didn't have time to complete:
+
+- The tests are very basic but they run/pass. I needed to setup my test environment fully so it would mount and excute the JS file.
+- Clicking the folders in the contents viewer do not function currently. I have a solution in my head for it but ran out of time. Since the instructions said the `name` was considered unique, I would add that as an ID for the folder in the directory tree and have the folder contents use the parent folder id to handle updating the state of the selected folder.
 
 ### Questions I asked after receiving the coding challenge
 
