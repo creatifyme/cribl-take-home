@@ -155,13 +155,12 @@ const findFolders = (item:ITreeNode) => {
 // Reduce array to just folders
 const getFolderTypes = (array: ITreeNode[]) => array.map(findFolders).filter(item => item !== null);
 
-const findObjectByKey = (array: ITreeNode[], key: string, value: string) => {
+const findObjectByKey = (array: ITreeNode[], key: string, value: string): ITreeNode | undefined => {
   for (const item of array) {
     if (typeof item === 'object' && item !== null) {
-      if (item[key] === value) {
+      if ((item as any)[key] === value) {
         return item;
       }
-
       const foundObject = Array.isArray(item) ? findObjectByKey(item, key, value) : findObjectByKey(Object.values(item), key, value);
 
       if (foundObject) {
