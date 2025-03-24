@@ -15,10 +15,10 @@
 
 ### What didn't get done
 
-I work full time as a Staff Frontend Engineer and have very limited time outside of work. Here are the things I didn't have time to complete:
+I work full time as a Staff Frontend Engineer and have very limited time outside of work. I dedicated about 8 hours between coding, reading the challenge, coming up with questions about the challenge, and making decisions based on the answers outlined below. Here are the things I didn't have time to complete:
 
-- The tests are very basic but they run/pass. I needed to setup my test environment fully so it would mount and excute the JS file.
-- Clicking the folders in the contents viewer do not function currently. I have a solution in my head for it but ran out of time. Since the instructions said the `name` was considered unique, I would add that as an ID for the folder in the directory tree and have the folder contents use the parent folder id to handle updating the state of the selected folder.
+- The tests are very basic but they run/pass. I would need to setup my test environment fully so it would mount and excute the JS file.
+- Clicking the folders in the contents viewer does not function. I have a solution in my head for it but ran out of time. Since the instructions said the `name` was considered unique, I would add that as an ID for the folder in the directory tree and have the folder contents use the parent folder id to handle updating the state of the selected folder.
 
 ### Questions I asked after receiving the coding challenge
 
